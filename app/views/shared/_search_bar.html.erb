@@ -1,0 +1,52 @@
+<% unless controller_name.in?(['contact', 'about']) %>
+  <% if controller_name.in?(['games', 'ps4', 'xb1', 'xbx']) && !controller_name.in?(['contact', 'about']) %>
+    <% case controller.controller_name %>
+      <% when 'games' %>
+        <%= form_tag(search_games_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search Games by Title", aria: { label: "Search" } %>
+            <div class="input-group-append">
+              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+            </div>
+          </div>
+        <% end %>
+      <% when 'ps4' %>
+        <%= form_tag(search_ps4_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search PS4 Games by Title", aria: { label: "Search" } %>
+            <div class="input-group-append">
+              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+            </div>
+          </div>
+        <% end %>
+      <% when 'xb1' %>
+        <%= form_tag(search_xb1_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search XB1 Games by Title", aria: { label: "Search" } %>
+            <div class="input-group-append">
+              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+            </div>
+          </div>
+        <% end %>
+      <% when 'xbx' %>
+        <%= form_tag(search_xbx_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+          <div class="input-group">
+            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search XBX Games by Title", aria: { label: "Search" } %>
+            <div class="input-group-append">
+              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+  <% else %>
+    <!-- Default case if no specific page match -->
+    <%= form_tag(root_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+      <div class="input-group">
+        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search Games by Title", aria: { label: "Search" } %>
+        <div class="input-group-append">
+          <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

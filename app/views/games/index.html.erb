@@ -12,8 +12,10 @@
                 <div class="card bg-dark text-light">
                   <div class="card-body">
                     <h5 class="card-title"><%= link_to game.title, game_path(game), class: "text-light" %></h5>
-                    <p class="card-text">Price: <%= game.price %></p>
-                    <p class="card-text">Genre: <%= game.genre %></p>
+                    <p class="card-text">
+                      Price: $<%= game.price %> <br>
+                      Genre: <%= game.genre.nil? ? 'N/A' : game.genre %>
+                    </p>
                     <!-- Add other game details here -->
                   </div>
                 </div>
