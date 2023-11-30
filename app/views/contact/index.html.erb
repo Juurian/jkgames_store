@@ -1,0 +1,44 @@
+<% content_for :title, "Contact Us" %>
+
+<div class="container mt-4 bg-dark">
+  <div class="row">
+    <div class="col">
+      <h1 class="text-light">Contact Us</h1>
+      <p>Have questions? Contact us using the information below:</p>
+
+      <div class="mb-4">
+        <h2 class="fw-bold">Contact Information:</h2>
+        <p><strong>Phone:</strong> (204) 123-4567</p>
+        <p><strong>Email:</strong> info@jkgames.com</p>
+      </div>
+
+      <div class="mb-4">
+        <h2 class="fw-bold">Visit Our Stores:</h2>
+        <address>
+          <p>956 Princess St</p>
+          <p>666 Elgin St</p>
+          <p>431 Notre Dame St</p>
+        </address>
+      </div>
+
+      <div class="mb-4">
+        <h2 class="fw-bold">Send Us a Message:</h2>
+        <form action="/submit_message" method="post">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Your Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

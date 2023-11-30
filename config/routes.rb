@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :games, only: [:index, :show]
 
   get "about", to: "about#index"
+  get "contact", to: "contact#index"
 end
