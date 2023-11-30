@@ -19,6 +19,15 @@
             </div>
           </div>
         <% end %>
+      <% when 'ps5' %>
+        <%= form_tag(search_ps5_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+          <div class="input-group mt-2 mb-2">
+            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search PS5 Games by Title", aria: { label: "Search" } %>
+            <div class="input-group-append">
+              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+            </div>
+          </div>
+        <% end %>
       <% when 'xb1' %>
         <%= form_tag(search_xb1_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
           <div class="input-group mt-2 mb-2">

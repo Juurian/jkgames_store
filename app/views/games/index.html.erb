@@ -6,6 +6,8 @@
       <div class="card text-light">
         <div class="card-body">
           <h1 class="card-title text-dark">All Games</h1>
+                    <% breadcrumbs = [{ name: 'Home', path: root_path }, { name: 'Games', path: games_path }] %>
+            <%= render partial: 'shared/breadcrumbs', locals: { breadcrumbs: breadcrumbs } %>
           <div class="row row-cols-1 row-cols-md-4 g-4">
             <% @games.each do |game| %>
               <div class="col">
