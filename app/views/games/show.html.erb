@@ -3,9 +3,22 @@
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <div class="card bg-dark text-light">
-        <div class="card-body">
+        <div class="card-body bg-dark">
+          <% breadcrumbs = [{ name: 'Home', path: root_path }, { name: 'Games', path: games_path }, { name: @game.title, path: game_path(@game) }] %>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-secondary">
+              <% breadcrumbs.each_with_index do |breadcrumb, index| %>
+                <% if index == breadcrumbs.length - 1 %>
+                  <li class="breadcrumb-item active text-light" aria-current="page"><%= breadcrumb[:name] %></li>
+                <% else %>
+                  <li class="breadcrumb-item"><a href="<%= breadcrumb[:path] %>" class="text-light"><%= breadcrumb[:name] %></a></li>
+                  <li class="breadcrumb-item divider">/</li>
+                <% end %>
+              <% end %>
+            </ol>
+          </nav>
           <h1 class="card-title"><%= @game.title %></h1>
-                    <!-- Insert Image for the video game here -->
+          <!-- Insert Image for the video game here -->
           <p class="card-text"><strong>Description:</strong> <%= @game.description %></p>
           <p class="card-text"><strong>Price:</strong> <%= number_to_currency(@game.price) %></p>
           <p class="card-text"><strong>Genre:</strong> <%= @game.genre %></p>

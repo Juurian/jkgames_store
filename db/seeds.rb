@@ -2,11 +2,11 @@ require "sqlite3"
 require "csv"
 require "active_record"
 
+AdminUser.delete_all
 Game.destroy_all
 
-# AdminUser.delete_all
 
-# AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 # Specify the file path to your CSV file
 csv_file = Rails.root.join("db/games.csv")
