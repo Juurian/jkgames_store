@@ -4,7 +4,11 @@
     <div class="col-md-8 offset-md-2">
       <div class="card bg-dark text-light">
         <div class="card-body bg-dark">
-          <% breadcrumbs = [{ name: 'Home', path: root_path }, { name: 'Games', path: games_path }, { name: @game.title, path: game_path(@game) }] %>
+          <% breadcrumbs = [
+            { name: 'Home', path: root_path },
+            { name: 'Games', path: games_path },
+            { name: @game.title, path: game_path(@game) }
+          ] %>
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-secondary">
               <% breadcrumbs.each_with_index do |breadcrumb, index| %>
@@ -18,15 +22,30 @@
             </ol>
           </nav>
           <h1 class="card-title"><%= @game.title %></h1>
-          <!-- Insert Image for the video game here -->
-          <p class="card-text"><strong>Description:</strong> <%= @game.description %></p>
-          <p class="card-text"><strong>Price:</strong> <%= number_to_currency(@game.price) %></p>
-          <p class="card-text"><strong>Genre:</strong> <%= @game.genre %></p>
-          <p class="card-text"><strong>ESRB:</strong> <%= @game.esrb_rating %></p>
-          <p class="card-text"><strong>Manufacturer:</strong> <%= @game.manufacturer %></p>
-          <p class="card-text"><strong>Release Date:</strong> <%= @game.release_date %></p>
-          <p class="card-text"><strong>Weight:</strong> <%= @game.weight %></p>
-          <p class="card-text"><strong>Stock:</strong> <%= @game.stock %></p>
+
+          <!-- Display all images using Active Storage -->
+          <div class="row">
+            <% if @game.images.attached? %>
+              <% @game.images.each do |image| %>
+                <div class="col-md-4 mt-3">
+                  <%= image_tag image, class: 'img-fluid' %>
+                </div>
+              <% end %>
+            <% else %>
+              <p>No images available.</p>
+            <% end %>
+          </div>
+
+          <!-- Video Game Info -->
+          <p class="card-text">
+            <strong>Description:</strong> <%= @game.description %><br>
+            <strong>Price:</strong> <%= number_to_currency(@game.price) %><br>
+            <strong>Genre:</strong> <%= @game.genre %><br>
+            <strong>ESRB:</strong> <%= @game.esrb_rating %><br>
+            <strong>Manufacturer:</strong> <%= @game.manufacturer %><br>
+            <strong>Weight:</strong> <%= @game.weight %><br>
+            <strong>Stock:</strong> <%= @game.stock %>
+          </p>
         </div>
       </div>
     </div>
