@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card bg-dark text-light">
+        <div class="card-body">
+          <h1 class="card-title"><%= @game.title %></h1>
+                    <!-- Insert Image for the video game here -->
+          <p class="card-text"><strong>Description:</strong> <%= @game.description %></p>
+          <p class="card-text"><strong>Price:</strong> <%= number_to_currency(@game.price) %></p>
+          <p class="card-text"><strong>Genre:</strong> <%= @game.genre %></p>
+          <p class="card-text"><strong>ESRB:</strong> <%= @game.esrb_rating %></p>
+          <p class="card-text"><strong>Manufacturer:</strong> <%= @game.manufacturer %></p>
+          <p class="card-text"><strong>Release Date:</strong> <%= @game.release_date %></p>
+          <p class="card-text"><strong>Weight:</strong> <%= @game.weight %></p>
+          <p class="card-text"><strong>Stock:</strong> <%= @game.stock %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
