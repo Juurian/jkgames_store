@@ -13,7 +13,7 @@ csv_file = Rails.root.join("db/games.csv")
 
 # Loop through the fetched data and seed it into your Rails database
 CSV.foreach(csv_file, headers: true) do |game|
-  Game.create!(
+  createGames = Game.create!(
     title:        game["title"],
     platform:     game["platform"],
     description:  game["description"],
@@ -25,6 +25,8 @@ CSV.foreach(csv_file, headers: true) do |game|
     weight:       game["weight"],
     stock:        game["stock"]
   )
+  createGames.images.attach(io: File.open("public/storage/game_master_image/#{createGames.id}.jpg"), filename: "#{game["title"]}.jpg")
+sleep(1)
 end
 
 puts "Seed data created successfully!"
