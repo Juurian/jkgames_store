@@ -20,7 +20,7 @@ ActiveAdmin.register Game do
     # f.inputs = all the inputs of the form title, platform etc
     f.inputs
     f.inputs do
-      f.input :images, as: :file
+      f.input :images, as: :file, hint: f.object.images.attached? ? f.object.images.map { |i| image_tag(i) }.join('<br>').html_safe : content_tag(:span, 'No images yet')
     end
     f.actions
   end
