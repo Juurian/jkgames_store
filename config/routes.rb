@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :cart, only: %i[create destroy]
+
   get "about", to: "about#index"
   get "contact", to: "contact#index"
 
