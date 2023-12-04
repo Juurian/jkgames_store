@@ -16,4 +16,7 @@ Rails.application.routes.draw do
 
   get '/storage/game_master_image/:game_id/:image_name', to: 'games#show_image', as: 'game_image'
 
+  get 'restricted', to: 'restricted#index', as: :restricted
+
+
 end
