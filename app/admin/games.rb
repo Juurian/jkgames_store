@@ -20,7 +20,7 @@ ActiveAdmin.register Game do
     # f.inputs = all the inputs of the form title, platform etc
     f.inputs
     f.inputs do
-      f.input :image, as: :file
+      f.input :images, as: :file
     end
     f.actions
   end
