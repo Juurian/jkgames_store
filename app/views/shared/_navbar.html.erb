@@ -51,7 +51,7 @@
 
       <div>
         <% if user_signed_in? %>
-          <%= "Welcome, #{current_user.email}!" %> <!-- You can replace 'email' with the attribute you want to display -->
+          <%= "Welcome, #{current_user.email}!" %>
           <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
         <% else %>
           <%= link_to 'Sign Up', new_user_registration_path %>
