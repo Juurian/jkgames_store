@@ -13,14 +13,37 @@
 
   <body class="bg-secondary text-white">
       <%= render "shared/navbar" %>
-      <%= debug session[:shopping_cart] %>
-      <!-- %= debug cart % -->
-      <!-- <p>You have added <%= pluralize cart, 'game' %> to the cart.</p> -->
+      <!-- <%= debug session[:shopping_cart] %> -->
+
         <% if flash[:notice] %>
           <p>
             <%= flash[:notice] %>
           </p>
         <% end %>
+
+        <nav>
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Cart
+                <% if cart.present? %>
+                  <p>has <%= cart.size %> items.</p>
+                  <div class="cart-dropdown">
+                    <ul class="list-group">
+                      <% cart.each do |game| %>
+                        <li class="list-group-item">
+                          <%= link_to game.title, game_path(game) %>
+                          <%= button_to 'Remove', cart_path(game), method: :delete, class: 'btn btn-danger btn-sm float-end' %>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
       <%= render "shared/search_bar" %>
     <%= yield %>
   </body>
