@@ -46,6 +46,16 @@
             <strong>Weight:</strong> <%= @game.weight %><br>
             <strong>Stock:</strong> <%= @game.stock %>
           </p>
+          <% if cart.include?(@game) %>
+            <%= form_with url: cart_path(@game), method: :delete do |form| %>
+              <%= form.submit 'Remove from Cart', class: 'btn btn-danger' %>
+            <% end %>
+          <% else %>
+            <%= form_with url: cart_index_path, method: :post do |form| %>
+              <%= form.hidden_field :id, value: @game.id %>
+              <%= button_tag 'Add to Cart', type: 'submit', class: 'btn btn-primary' %>
+            <% end %>
+          <% end %>
         </div>
       </div>
     </div>
