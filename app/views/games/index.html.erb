@@ -13,20 +13,30 @@
               <div class="card bg-dark text-light">
                 <div class="card-body">
                   <!-- Display the first image corresponding to the game ID -->
+                  <!--
                   <% if game.images.attached? %>
                     <%= image_tag rails_blob_path(game.images.first, only_path: true), class: 'img-fluid' %>
                   <% end %>
+                  -->
 
                   <h5 class="card-title"><%= link_to game.title, game_path(game), class: "text-light" %></h5>
                   <p class="card-text">
-                    Game id: <%= game.id %>
+                    Game Id: <%= game.id %>
                     Price: $<%= game.price %> <br>
                     Genre: <%= game.genre.nil? ? 'N/A' : game.genre %>
                   </p>
-                  <%= form_with url: cart_index_path, method: :post do |form| %>
-                    <%= form.hidden_field :id, value: game.id %>
-                    <%= button_tag 'Add to Cart➕' %>
+
+                  <% if cart.include?(game) %>
+                    <%= form_with url: cart_path(game), method: :delete do |form| %>
+                      <%= form.submit 'Remove from Cart', class: 'btn btn-danger' %>
+                    <% end %>
+                  <% else %>
+                    <%= form_with url: cart_index_path, method: :post do |form| %>
+                      <%= form.hidden_field :id, value: game.id %>
+                      <%= button_tag 'Add to Cart', type: 'submit', class: 'btn btn-primary' %>
+                    <% end %>
                   <% end %>
+
                   <!-- Add other game details here -->
                 </div>
               </div>
