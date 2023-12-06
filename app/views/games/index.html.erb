@@ -13,11 +13,9 @@
               <div class="card bg-dark text-light">
                 <div class="card-body">
                   <!-- Display the first image corresponding to the game ID -->
-                  <!--
                   <% if game.images.attached? %>
                     <%= image_tag rails_blob_path(game.images.first, only_path: true), class: 'img-fluid' %>
                   <% end %>
-                  -->
 
                   <h5 class="card-title"><%= link_to game.title, game_path(game), class: "text-light" %></h5>
                   <p class="card-text">

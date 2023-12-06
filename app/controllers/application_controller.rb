@@ -1,14 +1,14 @@
 class ApplicationController < ActionController::Base
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :initialize_session
+  helper_method :cart
 
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :address, :phone_number])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :address, :phone_number])
+  private
+  def initialize_session
+    session[:shopping_cart] ||= [] #empty array of product IDsS
   end
 
-  def after_sign_in_path_for(resource)
-    root_path
+  def cart
+    # lookup a product based upon a series of ids
+    Game.find(session[:shopping_cart])
   end
 end
