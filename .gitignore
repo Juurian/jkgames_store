@@ -14,6 +14,7 @@
 /db/schema.rb
 /db/development.sqlite3Zone.Identifier
 /db/development.sqlite3:Zone.Identifier
+/db/backup/*
 
 # Ignore all logfiles and tempfiles.
 /log/*
