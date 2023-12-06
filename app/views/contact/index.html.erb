@@ -8,16 +8,14 @@
 
       <div class="mb-4">
         <h2 class="fw-bold">Contact Information:</h2>
-        <p><strong>Phone:</strong> (204) 123-4567</p>
-        <p><strong>Email:</strong> info@jkgames.com</p>
+        <p><strong>Phone:</strong> <%= ContactPage.first.phone %></p>
+        <p><strong>Email:</strong> <%= ContactPage.first.email %></p>
       </div>
 
       <div class="mb-4">
         <h2 class="fw-bold">Visit Our Stores:</h2>
         <address>
-          <p>956 Princess St</p>
-          <p>666 Elgin St</p>
-          <p>431 Notre Dame St</p>
+          <%= raw ContactPage.first.address %>
         </address>
       </div>
 
