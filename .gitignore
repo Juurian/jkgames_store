@@ -7,6 +7,10 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -17,6 +21,15 @@
 /tmp/pids/*
 !/tmp/pids/
 !/tmp/pids/.keep
+
+# Ignore uploaded files in development.
+# /storage/*
+# !/storage/.keep
+# /tmp/storage/*
+# !/tmp/storage/
+# !/tmp/storage/.keep
+
+/public/assets
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
