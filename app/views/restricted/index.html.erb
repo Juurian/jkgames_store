@@ -1,0 +1,11 @@
+<div id="restricted-content" class="hidden">
+  <h1>Welcome to the Restricted Page</h1>
+  <p>This page is only accessible to signed-in users.</p>
+</div>
+
+<script>
+  document.addEventListener("turbolinks:load", function() {
+    // Show the content once the page is fully loaded
+    document.getElementById("restricted-content").classList.remove("hidden");
+  });
+</script>
