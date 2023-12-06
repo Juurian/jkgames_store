@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
 
   get 'restricted', to: 'restricted#index', as: :restricted
+  get '/cart', to: 'cart#show', as: 'cart_show'
+
 
 
 end
