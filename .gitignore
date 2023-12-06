@@ -10,6 +10,9 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-*
+/db/migrate/*
+/db/schema.rb
+/db/development.sqlite3Zone.Identifier
 
 # Ignore all logfiles and tempfiles.
 /log/*
