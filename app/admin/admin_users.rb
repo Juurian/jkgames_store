@@ -24,11 +24,5 @@ ActiveAdmin.register AdminUser do
     end
     f.actions
   end
-
-  controller do
-    def authenticate_admin_user!
-      redirect_to root_path unless current_admin_user && current_admin_user.user_role == 2
-    end
-  end
-
 end
+
