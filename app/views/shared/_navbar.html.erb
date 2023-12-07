@@ -65,11 +65,12 @@
       </div>
 
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
-      <!-- Other navigation items -->
+      <% if user_signed_in? && current_user.user_role == 2 %>
         <li class="nav-item">
           <%= link_to 'Admin Portal', 'http://127.0.0.1:3000/admin/login', class: "nav-link text-white", style: "font-size: 18px;" %>
         </li>
-      </ul>
+      <% end %>
+    </ul>
 
       <div class="d-flex justify-content-end">
       <%= link_to cart_show_path, class: 'btn btn-primary text-white me-2 text-decoration-none ms-3' do %>
