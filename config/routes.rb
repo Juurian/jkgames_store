@@ -13,8 +13,12 @@ Rails.application.routes.draw do
   end
 
   # PS4 Index
-  get '/ps4', to: 'ps4#index' # Route for PS4 games
-  get '/ps4/search', to: 'ps4#search', as: 'search_ps4' # Define the route for searching PS4 games
+  get '/ps4', to: 'ps4#index'
+  get '/ps4/search', to: 'ps4#search', as: 'search_ps4'
+
+  # PS5 Index
+  get '/ps5', to: 'ps5#index'
+  get '/ps5/search', to: 'ps5#search', as: 'search_ps5'
 
   resources :cart, only: [:create, :destroy]
 

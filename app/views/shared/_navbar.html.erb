@@ -23,7 +23,7 @@
 
         <!-- replace the "#" with the path when it is created -->
         <li class="nav-item">
-          <%= link_to "PS5", "#", class: "nav-link text-white", style: "font-size: 18px;" %>
+          <%= link_to "PS5", ps5_path , class: "nav-link text-white", style: "font-size: 18px;" %>
         </li>
 
         <!-- replace the "#" with the path when it is created -->
@@ -56,9 +56,6 @@
         </li>
       </ul>
 
-
-
-
       <div>
         <% if user_signed_in? %>
           <%= "Welcome, #{current_user.email}!" %>
@@ -68,6 +65,10 @@
           <%= link_to 'Sign In', new_user_session_path, class: "nav-link text-white", style: "font-size: 18px;" %>
         <% end %>
       </div>
+
+      <div class="d-flex justify-content-end">
+      <p><%= link_to 'Checkout', cart_show_path, class:'btn btn-primary text-white me-2 text-decoration-none ms-3' %></p>
+    </div>
 
     </div>
   </div>

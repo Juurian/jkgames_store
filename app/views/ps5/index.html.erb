@@ -1,0 +1,43 @@
+<% content_for :title, "PS5 Games" %>
+<div class="container-fluid games-container bg-dark">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card text-light">
+        <div class="card-body">
+          <h1 class="card-title text-dark">PS5 Games</h1>
+          <% breadcrumbs = [{ name: 'Home', path: root_path }, { name: 'PS5 Games', path: ps5_path }] %>
+          <%= render partial: 'shared/breadcrumbs', locals: { breadcrumbs: breadcrumbs } %>
+          <div class="row row-cols-1 row-cols-md-4 g-4">
+            <% @games.each do |game| %>
+              <div class="col">
+                <div class="card bg-dark text-light">
+                  <div class="card-body">
+                    <!-- Display the first image corresponding to the game ID -->
+                    <% if game.images.attached? %>
+                      <%= image_tag rails_blob_path(game.images.first, only_path: true), class: 'img-fluid' %>
+                    <% end %>
+
+                    <h5 class="card-title"><%= link_to game.title, game_path(game), class: "text-light" %></h5>
+                    <p class="card-text">
+                      Price: $<%= game.price %> <br>
+                      Genre: <%= game.genre.nil? ? 'N/A' : game.genre %>
+                    </p>
+
+                    <!-- Add logic for cart handling -->
+
+                    <!-- Add other game details here -->
+                  </div>
+                </div>
+              </div>
+            <% end %>
+
+            <!-- Pagination -->
+            <div class="mt-3 text-center">
+              <%= paginate @games, class: 'pagination justify-content-center' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
