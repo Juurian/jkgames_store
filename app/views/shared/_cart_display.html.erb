@@ -15,14 +15,14 @@
           <div class="row row-cols-6">
             <% game_count = 0 %>
             <% session[:shopping_cart].each do |id, details| %>
-              <% if game_count < 12 %>
+              <% if game_count < 6 %>
                 <div class="col-md-2 mb-3">
-                  <div class="card" style="height: 160px;"> <!-- Added max-height inline style -->
+                  <div class="card" style="width: 140px padding-left: 20px;">
                     <div class="card-body">
                       <%= link_to details['title'], game_path(id), class: "cart-item-link" %><br>
                       <b>Quantity:</b> <%= details['quantity'] %><br>
                       <b>$<%= details['price'] %> CAD</b>
-                      <div class="text-center"> <!-- Center the Remove button -->
+                      <div class="text-center">
                         <%= button_to 'Remove', cart_path(id), method: :delete, class: 'btn btn-danger btn-sm' %>
                       </div>
                     </div>
