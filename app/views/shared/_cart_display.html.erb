@@ -1,0 +1,39 @@
+<% if controller_name.in?(["games", "ps4", "ps5", "nsw", "xb1", "xbx"]) %>
+  <!-- <%= debug session[:shopping_cart] %> -->
+  <% if flash[:notice] %>
+    <p>
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+
+  <div class="navbar">
+    <nav class="navbar-nav">
+      <div class="nav-item ms-3 me-3">
+        <h3 class="text-white">Cart</h3>
+        <% if session[:shopping_cart].present? %>
+          <p>Your cart currently has <%= session[:shopping_cart].sum { |_, details| details['quantity'].to_i } %> items.</p>
+          <div class="row row-cols-6">
+            <% game_count = 0 %>
+            <% session[:shopping_cart].each do |id, details| %>
+              <% if game_count < 12 %>
+                <div class="col-md-2 mb-3">
+                  <div class="card" style="height: 160px;"> <!-- Added max-height inline style -->
+                    <div class="card-body">
+                      <%= link_to details['title'], game_path(id), class: "cart-item-link" %><br>
+                      <b>Quantity:</b> <%= details['quantity'] %><br>
+                      <b>$<%= details['price'] %> CAD</b>
+                      <div class="text-center"> <!-- Center the Remove button -->
+                        <%= button_to 'Remove', cart_path(id), method: :delete, class: 'btn btn-danger btn-sm' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <% game_count += 1 %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </nav>
+  </div>
+<% end %>

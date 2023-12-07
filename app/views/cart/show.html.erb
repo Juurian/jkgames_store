@@ -2,7 +2,7 @@
 <% content_for :title, "Your Cart" %>
 
 <div class="container">
-  <h1>Your Cart</h1>
+  <h1 class="text-white">Your Cart</h1>
 
   <% if session[:shopping_cart].empty? %>
     <p>Your cart is empty.</p>
@@ -41,5 +41,5 @@
     </table>
   <% end %>
 
-  <%= link_to 'Continue Shopping', root_path, class: 'btn btn-primary' %>
+  <%= link_to 'Continue Shopping', root_path, class: 'text-decoration-none text-white btn btn-primary' %>
 </div>
