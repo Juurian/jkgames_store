@@ -1,0 +1,52 @@
+<% content_for :title, @game.title %>
+<div class="container-fluid game-container bg-dark">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card bg-dark text-light">
+        <div class="card-body bg-dark">
+          <% breadcrumbs = [
+            { name: 'Home', path: root_path },
+            { name: 'NSW Games', path: nsw_path },
+            { name: @game.title, path: nsw_game_path(@game) }
+          ] %>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-secondary">
+              <% breadcrumbs.each_with_index do |breadcrumb, index| %>
+                <% if index == breadcrumbs.length - 1 %>
+                  <li class="breadcrumb-item active text-light" aria-current="page"><%= breadcrumb[:name] %></li>
+                <% else %>
+                  <li class="breadcrumb-item"><a href="<%= breadcrumb[:path] %>" class="text-light"><%= breadcrumb[:name] %></a></li>
+                  <li class="breadcrumb-item divider">/</li>
+                <% end %>
+              <% end %>
+            </ol>
+          </nav>
+          <h1 class="card-title"><%= @game.title %></h1>
+
+          <!-- Display all images using Active Storage -->
+          <div class="row">
+            <% if @game.images.attached? %>
+              <% @game.images.each do |image| %>
+                <div class="col-md-4 mt-3">
+                  <%= image_tag image, class: 'img-fluid' %>
+                </div>
+              <% end %>
+            <% else %>
+              <p>No images available.</p>
+            <% end %>
+          </div>
+
+          <!-- Video Game Info -->
+          <p class="card-text">
+            <strong>Description:</strong> <%= @game.description %><br>
+            <strong>Price:</strong> <%= number_to_currency(@game.price) %><br>
+            <strong>Genre:</strong> <%= @game.genre %><br>
+            <!-- Add other game details here -->
+          </p>
+
+          <!-- Add logic for cart handling -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
