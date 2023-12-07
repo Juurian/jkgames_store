@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
 
   private
   def initialize_session
-    session[:shopping_cart] ||= [] #empty array of product IDsS
+    session[:shopping_cart] ||= {} #empty array of product IDsS
   end
 
   def cart
     # lookup a product based upon a series of ids
-    Game.find(session[:shopping_cart])
+    Game.find(session[:shopping_cart].keys)
   end
 end
