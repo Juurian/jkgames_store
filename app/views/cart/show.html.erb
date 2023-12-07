@@ -14,6 +14,7 @@
           <th>Quantity</th>
           <th>Price</th>
           <th>Total</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -25,12 +26,15 @@
             <td><%= quantity %></td>
             <td>$<%= price %></td>
             <td>$<%= number_with_precision(quantity * price, precision: 2) %></td>
+            <td>
+              <%= button_to 'Remove', cart_path(id), method: :delete, class: 'btn btn-danger btn-sm' %>
+            </td>
           </tr>
         <% end %>
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="3" class="text-end"><strong>Total:</strong></td>
+          <td colspan="4" class="text-end"><strong>Total:</strong></td>
           <td>$<%= number_with_precision(session[:shopping_cart].sum { |_, details| details['quantity'].to_i * details['price'].to_f }, precision: 2) %></td>
         </tr>
       </tfoot>
