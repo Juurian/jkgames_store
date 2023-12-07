@@ -1,4 +1,3 @@
-<!-- cart/show.html.erb -->
 <% content_for :title, "Your Cart" %>
 
 <div class="container">
@@ -19,13 +18,16 @@
       </thead>
       <tbody>
         <% session[:shopping_cart].each do |id, details| %>
-          <% quantity = details['quantity'].to_i %>
-          <% price = details['price'].to_f %>
           <tr>
             <td><%= details['title'] %></td>
-            <td><%= quantity %></td>
-            <td>$<%= price %></td>
-            <td>$<%= number_with_precision(quantity * price, precision: 2) %></td>
+            <td>
+            <%= form_tag(cart_update_path(id), method: :patch) do %>
+              <%= number_field_tag "quantity[#{id}]", details['quantity'], class: 'form-control' %>
+              <%= submit_tag 'Update', class: 'btn btn-primary btn-sm' %>
+            <% end %>
+            </td>
+            <td>$<%= details['price'] %></td>
+            <td>$<%= number_with_precision(details['quantity'].to_i * details['price'].to_f, precision: 2) %></td>
             <td>
               <%= button_to 'Remove', cart_path(id), method: :delete, class: 'btn btn-danger btn-sm' %>
             </td>

@@ -64,7 +64,21 @@ class CartController < ApplicationController
     end
   end
 
+# PATCH /cart/update/:id
+def update
+  id = params[:id].to_s
+  quantity = params[:quantity][id].to_i
 
+  # Update the quantity for the specified item in the cart
+  if session[:shopping_cart].key?(id)
+    session[:shopping_cart][id]['quantity'] = quantity
+    flash[:notice] = "Quantity updated for item #{id}..."
+  else
+    flash[:alert] = "Item not found in cart."
+  end
+
+  redirect_back fallback_location: root_path
+end
 
   def show
     # Fetch the items from the cart
