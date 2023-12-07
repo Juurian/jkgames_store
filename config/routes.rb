@@ -20,6 +20,10 @@ Rails.application.routes.draw do
   get '/ps5', to: 'ps5#index'
   get '/ps5/search', to: 'ps5#search', as: 'search_ps5'
 
+  # NSW Index
+  get '/nsw', to: 'nsw#index'
+  get '/nsw/search', to: 'nsw#search', as: 'search_nsw'
+
   resources :cart, only: [:create, :destroy]
 
   ## About Page Index
