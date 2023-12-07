@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_06_083046) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_07_163319) do
   create_table "about_pages", force: :cascade do |t|
     t.string "headline"
     t.text "self_intro"
