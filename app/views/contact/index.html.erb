@@ -7,20 +7,20 @@
       <p>Have questions? Contact us using the information below:</p>
 
       <div class="mb-4">
-        <h2 class="fw-bold">Contact Information:</h2>
+        <h2 class="fw-bold text-white"><u>Contact Information:</u></h2>
         <p><strong>Phone:</strong> <%= ContactPage.first.phone %></p>
         <p><strong>Email:</strong> <%= ContactPage.first.email %></p>
       </div>
 
       <div class="mb-4">
-        <h2 class="fw-bold">Visit Our Stores:</h2>
+        <h2 class="fw-bold text-white"><u>Visit Our Stores:</u></h2>
         <address>
           <%= raw ContactPage.first.address %>
         </address>
       </div>
 
       <div class="mb-4">
-        <h2 class="fw-bold">Send Us a Message:</h2>
+        <h2 class="fw-bold text-white"><u>Send Us a Message:</u></h2>
         <form action="/submit_message" method="post">
           <div class="mb-3">
             <label for="name" class="form-label">Your Name</label>
