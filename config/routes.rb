@@ -28,6 +28,10 @@ Rails.application.routes.draw do
   get '/xb1', to: 'xb1#index'
   get '/xb1/search', to: 'xb1#search', as: 'search_xb1'
 
+  # XBX Index
+  get '/xbx', to: 'xbx#index'
+  get '/xbx/search', to: 'xbx#search', as: 'search_xbx'
+
   ## About Page Index
   get "about", to: "about#index"
 

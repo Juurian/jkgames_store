@@ -38,7 +38,7 @@
 
         <!-- replace the "#" with the path when it is created -->
         <li class="nav-item">
-          <%= link_to "XBX", "#", class: "nav-link text-white", style: "font-size: 18px;" %>
+          <%= link_to "XBX", xbx_path, class: "nav-link text-white", style: "font-size: 18px;" %>
         </li>
 
         <li class="nav-item">
@@ -51,20 +51,26 @@
         </li>
 
         <!-- This is for testing User signed in/signed out -->
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <%= link_to 'Restricted Page', restricted_path, class: "nav-link text-white", style: "font-size: 18px;" %>
         </li>
-      </ul>
+        </ul>-->
 
       <div>
         <% if user_signed_in? %>
           <%= "Welcome, #{current_user.email}!" %>
           <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link text-white", style: "font-size: 18px;" %>
         <% else %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link text-white", style: "font-size: 18px;" %>
           <%= link_to 'Sign In', new_user_session_path, class: "nav-link text-white", style: "font-size: 18px;" %>
         <% end %>
       </div>
+
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <!-- Other navigation items -->
+        <li class="nav-item">
+          <%= link_to 'Admin Portal', 'http://127.0.0.1:3000/admin/login', class: "nav-link text-white", style: "font-size: 18px;" %>
+        </li>
+      </ul>
 
       <div class="d-flex justify-content-end">
       <p><%= link_to 'Checkout', cart_show_path, class:'btn btn-primary text-white me-2 text-decoration-none ms-3' %></p>
