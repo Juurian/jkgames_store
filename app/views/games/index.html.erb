@@ -24,15 +24,12 @@
                     Genre: <%= game.genre.nil? ? 'N/A' : game.genre %>
                   </p>
 
-                  <% if cart.include?(game) %>
-                    <%= form_with url: cart_path(game), method: :delete do |form| %>
-                      <%= form.submit 'Remove from Cart', class: 'btn btn-danger' %>
-                    <% end %>
-                  <% else %>
-                    <%= form_with url: cart_index_path, method: :post do |form| %>
-                      <%= form.hidden_field :id, value: game.id %>
-                      <%= button_tag 'Add to Cart', type: 'submit', class: 'btn btn-primary' %>
-                    <% end %>
+                  <%= form_with url: cart_index_path, method: :post do |form| %>
+                    <%= form.hidden_field :id, value: game.id %>
+                    <div class="input-group">
+                      <%= number_field_tag 'quantity', 1, min: 1, class: 'form-control', placeholder: 'Quantity' %>
+                      <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    </div>
                   <% end %>
 
                   <!-- Add other game details here -->

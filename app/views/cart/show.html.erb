@@ -1,33 +1,41 @@
-<% content_for :title, "Shopping Cart" %>
+<!-- cart/show.html.erb -->
+<% content_for :title, "Your Cart" %>
+
 <div class="container">
-  <h1>Your Shopping Cart</h1>
-  <% if @cart_items.present? %>
+  <h1>Your Cart</h1>
+
+  <% if session[:shopping_cart].empty? %>
+    <p>Your cart is empty.</p>
+  <% else %>
     <table class="table">
       <thead>
         <tr>
           <th>Title</th>
           <th>Quantity</th>
-          <th>Price Each</th>
-          <th>Subtotal</th>
-          <th>Actions</th>
+          <th>Price</th>
+          <th>Total</th>
         </tr>
       </thead>
       <tbody>
-        <% total_price = 0 %>
-        <% @cart_items.each do |item| %>
+        <% session[:shopping_cart].each do |id, details| %>
+          <% quantity = details['quantity'].to_i %>
+          <% price = details['price'].to_f %>
           <tr>
-            <td><%= link_to item[:title], game_path(item[:id]) %></td>
-            <td><%= item[:quantity] %></td>
-            <td>$<%= item[:price] %></td>
-            <td>$<%= item[:price] * item[:quantity] %></td>
-            <td><%= button_to 'Remove', cart_path(item[:id]), method: :delete %></td>
+            <td><%= details['title'] %></td>
+            <td><%= quantity %></td>
+            <td>$<%= price %></td>
+            <td>$<%= number_with_precision(quantity * price, precision: 2) %></td>
           </tr>
-          <% total_price += item[:price].to_f * item[:quantity].to_i %>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" class="text-end"><strong>Total:</strong></td>
+          <td>$<%= number_with_precision(session[:shopping_cart].sum { |_, details| details['quantity'].to_i * details['price'].to_f }, precision: 2) %></td>
+        </tr>
+      </tfoot>
     </table>
-    <p>Total Price: $<%= total_price %></p>
-  <% else %>
-    <p>Your cart is empty.</p>
   <% end %>
+
+  <%= link_to 'Continue Shopping', root_path, class: 'btn btn-primary' %>
 </div>

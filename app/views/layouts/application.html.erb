@@ -22,29 +22,33 @@
           </p>
         <% end %>
 
-        <nav>
-          <ul class="nav">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Cart
-                <% if cart.present? %>
-                  <p>has <%= cart.size %> items.</p>
-                  <div class="cart-dropdown">
-                    <ul class="list-group">
-                      <% cart.each do |game| %>
-                        <li class="list-group-item">
-                          <%= link_to game.title, game_path(game) %>
-                          <p>$<%= game.price %>CAD</p>
-                          <%= button_to 'Remove', cart_path(game), method: :delete, class: 'btn btn-danger btn-sm float-end' %>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                <% end %>
-              </a>
-            </li>
-          </ul>
-        </nav>
+      <!-- navigation partial -->
+      <nav>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Cart
+              <% if session[:shopping_cart].present? %>
+                <p>has <%= session[:shopping_cart].sum { |_, details| details['quantity'].to_i } %> items.</p>
+                <div class="cart-dropdown">
+                  <ul class="list-group">
+                    <% session[:shopping_cart].each do |id, details| %>
+                      <li class="list-group-item">
+                        <%= link_to details['title'], game_path(id) %>
+                        <p>Quantity: <%= details['quantity'] %></p>
+                        <p>$<%= details['price'] %>CAD</p>
+                        <%= button_to 'Remove', cart_path(id), method: :delete, class: 'btn btn-danger btn-sm float-end' %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+
 
         <%= link_to 'View your cart', cart_show_path %>
 
