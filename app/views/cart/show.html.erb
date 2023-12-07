@@ -1,0 +1,33 @@
+<% content_for :title, "Shopping Cart" %>
+<div class="container">
+  <h1>Your Shopping Cart</h1>
+  <% if @cart_items.present? %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Quantity</th>
+          <th>Price Each</th>
+          <th>Subtotal</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% total_price = 0 %>
+        <% @cart_items.each do |item| %>
+          <tr>
+            <td><%= link_to item[:title], game_path(item[:id]) %></td>
+            <td><%= item[:quantity] %></td>
+            <td>$<%= item[:price] %></td>
+            <td>$<%= item[:price] * item[:quantity] %></td>
+            <td><%= button_to 'Remove', cart_path(item[:id]), method: :delete %></td>
+          </tr>
+          <% total_price += item[:price].to_f * item[:quantity].to_i %>
+        <% end %>
+      </tbody>
+    </table>
+    <p>Total Price: $<%= total_price %></p>
+  <% else %>
+    <p>Your cart is empty.</p>
+  <% end %>
+</div>
