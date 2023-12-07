@@ -4,15 +4,21 @@ class CartController < ApplicationController
     puts "Create action called!"
     logger.debug("Adding #{params[:id]} to cart.")
     id = params[:id].to_i
+    puts id.class
     quantity = params[:quantity].to_i
+    puts quantity.class
 
     # Ensure the cart is initialized
     session[:shopping_cart] ||= {}
 
+    puts "#{session[:shopping_cart]}"
     # Check if the game is already in the cart
-    if session[:shopping_cart].key?(id)
+    if session[:shopping_cart].key?(id.to_s)
       # If the game is already in the cart, update the quantity
-      session[:shopping_cart][id][:quantity] += quantity
+      puts "#{session[:shopping_cart].key(id.to_s)} is here"
+      current_quantity = session[:shopping_cart][id.to_s]["quantity"]
+      puts "quantity is #{current_quantity} and is a #{current_quantity.class}"
+      session[:shopping_cart][id.to_s][:quantity] = current_quantity + quantity
     else
       # If the game is not in the cart, add it with the specified quantity
       game = Game.find(id)
