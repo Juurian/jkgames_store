@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   get '/nsw', to: 'nsw#index'
   get '/nsw/search', to: 'nsw#search', as: 'search_nsw'
 
-  resources :cart, only: [:create, :destroy]
+  # XB1 Index
+  get '/xb1', to: 'xb1#index'
+  get '/xb1/search', to: 'xb1#search', as: 'search_xb1'
 
   ## About Page Index
   get "about", to: "about#index"
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
   # Cart Index
   delete '/cart/:id', to: 'cart#destroy'
   get '/cart', to: 'cart#show', as: 'cart_show'
+  resources :cart, only: [:create, :destroy]
 
   # Others
   get 'restricted', to: 'restricted#index', as: :restricted
