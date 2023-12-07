@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   before_action :initialize_session
-  before_action :authenticate_admin_user!
   helper_method :cart
 
   private
