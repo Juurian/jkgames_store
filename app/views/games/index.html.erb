@@ -19,7 +19,6 @@
 
                   <h5 class="card-title"><%= link_to game.title, game_path(game), class: "text-light" %></h5>
                   <p class="card-text">
-                    Game Id: <%= game.id %>
                     Price: $<%= game.price %> <br>
                     Genre: <%= game.genre.nil? ? 'N/A' : game.genre %>
                   </p>

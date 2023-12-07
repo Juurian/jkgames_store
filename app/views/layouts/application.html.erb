@@ -29,7 +29,7 @@
             <a class="nav-link" href="#">
               Cart
               <% if session[:shopping_cart].present? %>
-                <p>has <%= session[:shopping_cart].sum { |_, details| details['quantity'].to_i } %> items.</p>
+              <p>has <%= session[:shopping_cart].sum { |_, details| details['quantity'].to_i } %> items.</p>
                 <div class="cart-dropdown">
                   <ul class="list-group">
                     <% session[:shopping_cart].each do |id, details| %>
