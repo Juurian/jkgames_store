@@ -88,89 +88,166 @@ end
   def checkout
     @game_order = current_user.game_orders.build
     @user = current_user
+    @address = current_user.address
+    @gst = 0.05
+
+    game_id = session[:shopping_cart].keys
+    games = Game.where(id: game_id)
+    price = games.map do |game|
+      game.price * session[:shopping_cart][game.id.to_s]['quantity']
+    end
+    @sub_total = price.sum
+
+    case current_user.province
+    when 'MB'
+      @pst_rate = 0.08 # Manitoba PST rate
+    when 'AB'
+      @pst_rate = 0.00 # Alberta PST rate
+    when 'SK'
+      @pst_rate = 0.06 # Saskatchewan PST rate
+    when 'QC'
+      @pst_rate = 0.09975 # Quebec PST rate
+    when 'PE'
+      @pst_rate = 0.10 # Prince Edward Island PST rate
+    when 'ON'
+      @pst_rate = 0.08 # Ontario PST rate
+    when 'NB'
+      @pst_rate = 0.10 # New Brunswick PST rate
+    when 'NS'
+      @pst_rate = 0.10 # Nova Scotia PST rate
+    when 'NL'
+      @pst_rate = 0.10 # Newfoundland and Labrador PST rate
+    when 'BC'
+      @pst_rate = 0.07 # British Columbia PST rate
+    when 'NT'
+      @pst_rate = 0.00 # Northwest Territories PST rate
+    when 'YT'
+      @pst_rate = 0.00 # Yukon PST rate
+    when 'NU'
+      @pst_rate = 0.00 # Nunavut PST rate
+    else
+      @pst_rate = 0.00 # Default PST rate
+    end
   end
 
   def create_order_from_cart
-    if params[:update_cart_button]
-      update_cart_logic
-      @order = Order.new(user_id: current_user.id) # Replace with your Order model initialization
-      @user = current_user # Replace with how you get the current user
-      render 'checkout'
-    elsif params[:place_order_button]
-      place_order_logic
+    @game_order = current_user.game_orders.build
+    @user = current_user
+    @address = current_user.address
+    @gst = 0.05
+
+    game_id = session[:shopping_cart].keys
+    games = Game.where(id: game_id)
+    price = games.map do |game|
+      game.price * session[:shopping_cart][game.id.to_s]['quantity']
     end
+    @sub_total = price.sum
+
+    case current_user.province
+    when 'MB'
+      @pst_rate = 0.08 # Manitoba PST rate
+    when 'AB'
+      @pst_rate = 0.00 # Alberta PST rate
+    when 'SK'
+      @pst_rate = 0.06 # Saskatchewan PST rate
+    when 'QC'
+      @pst_rate = 0.09975 # Quebec PST rate
+    when 'PE'
+      @pst_rate = 0.10 # Prince Edward Island PST rate
+    when 'ON'
+      @pst_rate = 0.08 # Ontario PST rate
+    when 'NB'
+      @pst_rate = 0.10 # New Brunswick PST rate
+    when 'NS'
+      @pst_rate = 0.10 # Nova Scotia PST rate
+    when 'NL'
+      @pst_rate = 0.10 # Newfoundland and Labrador PST rate
+    when 'BC'
+      @pst_rate = 0.07 # British Columbia PST rate
+    when 'NT'
+      @pst_rate = 0.00 # Northwest Territories PST rate
+    when 'YT'
+      @pst_rate = 0.00 # Yukon PST rate
+    when 'NU'
+      @pst_rate = 0.00 # Nunavut PST rate
+    else
+      @pst_rate = 0.00 # Default PST rate
+    end
+
+    @total_with_tax = (@pst_rate * @sub_total) + (@gst * @sub_total) + @sub_total
+
+    Order.create(user_id: current_user.id, address: @address, total_price: @total_with_tax, province: current_user.province)
   end
 
-  def update_cart_logic
-    # Retrieve province and cart items from params
-    selected_province = params[:user][:province]
-    cart_items = session[:shopping_cart]
+  # def update_cart_logic
+  #   # Retrieve province and cart items from params
+  #   selected_province = params[:user][:province]
+  #   cart_items = session[:shopping_cart]
 
-    # Calculate grand total, PST, and GST for each item
-    grand_total = 0
-    pst_amount = 0
-    gst_amount = 0
+  #   # Calculate grand total, PST, and GST for each item
+  #   grand_total = 0
+  #   pst_amount = 0
+  #   gst_amount = 0
 
-    cart_items.each do |id, item|
-      sub_total = item['quantity'].to_i * item['price'].to_f
-      pst = calculate_pst(selected_province, sub_total)
-      gst = calculate_gst(sub_total)
-      total_with_tax = sub_total + pst + gst
-      grand_total += total_with_tax
-      pst_amount += pst
-      gst_amount += gst
-    end
+  #   cart_items.each do |id, item|
+  #     sub_total = item['quantity'].to_i * item['price'].to_f
+  #     pst = calculate_pst(selected_province, sub_total)
+  #     gst = calculate_gst(sub_total)
+  #     total_with_tax = sub_total + pst + gst
+  #     grand_total += total_with_tax
+  #     pst_amount += pst
+  #     gst_amount += gst
+  #   end
 
-    # Set the calculated amounts in instance variables
-    @grand_total = grand_total
-    @pst_amount = pst_amount
-    @gst_amount = gst_amount
+  #   # Set the calculated amounts in instance variables
+  #   @grand_total = grand_total
+  #   @pst_amount = pst_amount
+  #   @gst_amount = gst_amount
 
-    # Update the grand total in the session
-    session[:grand_total] = grand_total
-  end
+  #   # Update the grand total in the session
+  #   session[:grand_total] = grand_total
+  # end
 
   # Define the methods to calculate PST and GST
-  def calculate_pst(province, subtotal)
-    case province
-    when 'MB'
-      pst_rate = 0.08 # Manitoba PST rate
-    when 'AB'
-      pst_rate = 0.00 # Alberta PST rate
-    when 'SK'
-      pst_rate = 0.06 # Saskatchewan PST rate
-    when 'QC'
-      pst_rate = 0.09975 # Quebec PST rate
-    when 'PE'
-      pst_rate = 0.10 # Prince Edward Island PST rate
-    when 'ON'
-      pst_rate = 0.08 # Ontario PST rate
-    when 'NB'
-      pst_rate = 0.10 # New Brunswick PST rate
-    when 'NS'
-      pst_rate = 0.10 # Nova Scotia PST rate
-    when 'NL'
-      pst_rate = 0.10 # Newfoundland and Labrador PST rate
-    when 'BC'
-      pst_rate = 0.07 # British Columbia PST rate
-    when 'NT'
-      pst_rate = 0.00 # Northwest Territories PST rate
-    when 'YT'
-      pst_rate = 0.00 # Yukon PST rate
-    when 'NU'
-      pst_rate = 0.00 # Nunavut PST rate
-    else
-      pst_rate = 0.00 # Default PST rate
-    end
-    puts "button clicked and is running"
-    subtotal * pst_rate
-  end
+  # def calculate_pst(province, s)
+  #   case province
+  #   when 'MB'
+  #     pst_rate = 0.08 # Manitoba PST rate
+  #   when 'AB'
+  #     pst_rate = 0.00 # Alberta PST rate
+  #   when 'SK'
+  #     pst_rate = 0.06 # Saskatchewan PST rate
+  #   when 'QC'
+  #     pst_rate = 0.09975 # Quebec PST rate
+  #   when 'PE'
+  #     pst_rate = 0.10 # Prince Edward Island PST rate
+  #   when 'ON'
+  #     pst_rate = 0.08 # Ontario PST rate
+  #   when 'NB'
+  #     pst_rate = 0.10 # New Brunswick PST rate
+  #   when 'NS'
+  #     pst_rate = 0.10 # Nova Scotia PST rate
+  #   when 'NL'
+  #     pst_rate = 0.10 # Newfoundland and Labrador PST rate
+  #   when 'BC'
+  #     pst_rate = 0.07 # British Columbia PST rate
+  #   when 'NT'
+  #     pst_rate = 0.00 # Northwest Territories PST rate
+  #   when 'YT'
+  #     pst_rate = 0.00 # Yukon PST rate
+  #   when 'NU'
+  #     pst_rate = 0.00 # Nunavut PST rate
+  #   else
+  #     pst_rate = 0.00 # Default PST rate
+  #   end
+  #   subtotal * pst_rate
+  # end
 
 
-  def calculate_gst(subtotal)
-    gst_rate = 0.05 # GST rate is 5%
-    subtotal * gst_rate
-  end
+  # def calculate_gst(subtotal)
+  #   gst_rate = 0.05 # GST rate is 5%
+  #   subtotal * gst_rate
+  # end
 
   private
 

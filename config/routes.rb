@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   get 'restricted', to: 'restricted#index', as: :restricted
   get '/storage/game_master_image/:game_id/:image_name', to: 'games#show_image', as: 'game_image'
 
-  patch 'cart/update/:id', to: 'cart#update', as: :cart_update
+  patch 'cart/update/:id', to: 'cart#update', as: 'cart_update'
 
   resources :invoices, only: [:show]
 end

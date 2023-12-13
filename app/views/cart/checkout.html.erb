@@ -12,22 +12,12 @@
     <% end %>
   </ul>
 
-  <div id="grand_total">Grand Total: $<%= @grand_total || 0 %></div>
-  <div id="pst_amount">PST: $<%= @pst_amount || 0 %></div>
-  <div id="gst_amount">GST: $<%= @gst_amount || 0 %></div>
+  <div id="sub_total">Sub Total: $<%= @sub_total || 0 %></div>
+  <div id="pst_amount">PST: <%=@pst_rate * @sub_total %></div>
+  <div id="gst_amount">GST: <%=@gst * @sub_total || 0 %></div>
+  <div id="grand_total">Grand Total: $<%= (@pst_rate * @sub_total) + (@gst * @sub_total) + @sub_total || 0 %></div>
 
-  <!-- Allow the user to input their address and province -->
-  <div class="field">
-    <%= form.label :address %><br />
-    <%= form.text_area :address, rows: 4, value: current_user&.address %>
-  </div>
+  <div id="address">Ship To: <%= @address %></div>
 
-  <div class="field">
-    <%= form.label :province %><br />
-    <%= form.select :province, options_for_select(['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'], current_user&.province), include_blank: 'Select Province', id: 'province_select' %>
-  </div>
-
-  <%= form.submit "Update Cart", name: "update_cart_button" %>
   <%= form.submit "Place Order", name: "place_order_button" %>
-
 <% end %>
