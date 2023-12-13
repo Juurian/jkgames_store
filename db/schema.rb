@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_054009) do
   create_table "about_pages", force: :cascade do |t|
     t.string "headline"
     t.text "self_intro"
@@ -106,6 +106,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
     t.date "release_date"
     t.string "weight"
     t.integer "stock"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "games_gadgets", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

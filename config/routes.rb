@@ -49,4 +49,8 @@ Rails.application.routes.draw do
 
   patch 'cart/update/:id', to: 'cart#update', as: :cart_update
 
+  # config/routes.rb
+  resources :games_gadgets, only: [:index]
+
+
 end

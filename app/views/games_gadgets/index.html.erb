@@ -1,0 +1,20 @@
+<h1>Games Gadgets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @games_gadgets.each do |games_gadget| %>
+      <tr>
+        <td><%= games_gadget.title %></td>
+        <td><%= games_gadget.description %></td>
+        <td>$<%= games_gadget.price %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

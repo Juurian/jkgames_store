@@ -1,37 +1,57 @@
 require "sqlite3"
 require "csv"
 require "active_record"
+require "faker"
 
 AdminUser.delete_all
 # Game.destroy_all
 ContactPage.delete_all
 AboutPage.delete_all
+GamesGadget.delete_all
 
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-# Specify the file path to your CSV file
-csv_file = Rails.root.join("db/games.csv")
+# Create 100 fake games_gadgets
+# Create 100 fake games_gadgets
+100.times do
+  title = "#{Faker::Game.title} #{Faker::Commerce.product_name}"
+  material = Faker::Science.element
+  usage = Faker::Verb.ing_form
+  description = "This '#{title}' is made with #{material} and is good for #{usage}."
 
-# Loop through the fetched data and seed it into your Rails database
-CSV.foreach(csv_file, headers: true) do |game|
-  createGames = Game.create!(
-    title:        game["title"],
-    platform:     game["platform"],
-    description:  game["description"],
-    genre:        game["genre"],
-    price:        game["price"],
-    esrb_rating:  game["esrb_rating"],
-    manufacturer: game["manufacturer"],
-    release_date: game["release_date"],
-    weight:       game["weight"],
-    stock:        game["stock"]
+  GamesGadget.create(
+    title: title,
+    description: description,
+    price: Faker::Commerce.price(range: 10..100)
   )
-  createGames.images.attach(io: File.open("public/storage/game_master_image/#{createGames.id}.jpg"), filename: "#{game["title"]}.jpg")
-sleep(1)
 end
+puts "100 games gadgets generated"
 
-puts "Seed data created successfully!"
+
+
+# # Specify the file path to your CSV file
+# csv_file = Rails.root.join("db/games.csv")
+
+# # Loop through the fetched data and seed it into your Rails database
+# CSV.foreach(csv_file, headers: true) do |game|
+#   createGames = Game.create!(
+#     title:        game["title"],
+#     platform:     game["platform"],
+#     description:  game["description"],
+#     genre:        game["genre"],
+#     price:        game["price"],
+#     esrb_rating:  game["esrb_rating"],
+#     manufacturer: game["manufacturer"],
+#     release_date: game["release_date"],
+#     weight:       game["weight"],
+#     stock:        game["stock"]
+#   )
+#   createGames.images.attach(io: File.open("public/storage/game_master_image/#{createGames.id}.jpg"), filename: "#{game["title"]}.jpg")
+# sleep(1)
+# end
+
+# puts "Seed data created successfully!"
 
 # Contact Page Info
 ContactPage.create!(

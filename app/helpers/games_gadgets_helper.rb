@@ -1,0 +1,2 @@
+module GamesGadgetsHelper
+end
