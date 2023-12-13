@@ -1,14 +1,42 @@
 require "sqlite3"
 require "csv"
 require "active_record"
+require "faker"
+require 'open-uri'
 
 AdminUser.delete_all
 # Game.destroy_all
 ContactPage.delete_all
 AboutPage.delete_all
+GamesGadget.delete_all
 
 
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+
+# Create 100 fake games_gadgets
+100.times do
+  title = "#{Faker::Commerce.product_name} from #{Faker::Game.title}"
+  material = Faker::Science.element
+  usage = Faker::Verb.ing_form
+  description = "This '#{title}' is made with #{material} and is good for #{usage}."
+
+  games_gadget = GamesGadget.create(
+    title: title,
+    description: description,
+    price: Faker::Commerce.price(range: 10..100)
+  )
+
+  # ADD THESE 4 LINES OF CODE:
+  query = URI.encode_www_form_component(title)
+  downloaded_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
+  games_gadget.image.attach(io: downloaded_image, filename: "m-#{title}.jpg")
+  sleep(1) # <=== if youre downloading A LOT of images,
+  # do yourself a favour and DONT get yourself blocked by spamming the API.
+end
+puts "100 games gadgets generated"
+
+
+
 
 # # Specify the file path to your CSV file
 # csv_file = Rails.root.join("db/games.csv")

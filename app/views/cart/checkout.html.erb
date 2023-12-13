@@ -1,0 +1,27 @@
+<%= form_with(model: [@order, @customer], url: create_order_cart_index_path) do |form| %>
+  <!-- Display the cart items and total -->
+  <h2>Cart Items</h2>
+  <ul>
+    <% session[:shopping_cart].each do |id, details| %>
+      <li>
+        <%= details['title'] %> -
+        Quantity: <%= details['quantity'] %> -
+        Price: $<%= details['price'] %> -
+        Total: $<%= number_with_precision(details['quantity'].to_i * details['price'].to_f, precision: 2) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <!-- Allow the user to input their address and province -->
+  <div class="field">
+    <%= form.label :address %><br />
+    <%= form.text_area :address, rows: 4, value: current_user&.address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :province %><br />
+    <%= form.select :province, options_for_select(['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'], current_user&.province), include_blank: 'Select Province' %>
+  </div>
+
+  <%= form.submit "Place Order" %>
+<% end %>
