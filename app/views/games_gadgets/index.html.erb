@@ -24,6 +24,14 @@
                     </p>
 
                     <!-- Add other games_gadget details here -->
+                    <p><%= games_gadget.id %></p>
+                    <%= form_with url: cart_index_path, method: :post do |form| %>
+                      <%= form.hidden_field :id, value: games_gadget.id %>
+                      <div class="input-group">
+                        <%= number_field_tag 'quantity', 1, min: 1, class: 'form-control', placeholder: 'Quantity' %>
+                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                      </div>
+                    <% end %>
                   </div>
                 </div>
               </div>
