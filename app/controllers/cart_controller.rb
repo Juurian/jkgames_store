@@ -177,7 +177,14 @@ end
 
     @total_with_tax = (@pst_rate * @sub_total) + (@gst * @sub_total) + @sub_total
 
-    Order.create(user_id: current_user.id, address: @address, total_price: @total_with_tax, province: current_user.province)
+    @order = Order.create(user_id: current_user.id, address: @address, total_price: @total_with_tax, province: current_user.province)
+
+    # Clear the shopping cart after creating the order
+    session[:shopping_cart] = {}
+
+    flash[:notice] = "Your order has been placed successfully!"
+    redirect_to order_confirmation_path(order_id: @order.id)
+
   end
 
   # def update_cart_logic
