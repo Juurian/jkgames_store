@@ -1,47 +1,93 @@
-<h2 class="text-white">Sign up</h2>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <h2 class="text-white m-4 text-center">Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="mb-3">
+    <%= f.label :name, class: "text-white", for: "user_name" %>
+    <%= f.text_field :name, autofocus: true, class: "form-control", id: "user_name", required: true %>
+    <div class="invalid-feedback">
+      Please enter your name.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autocomplete: "email" %>
+  <div class="mb-3">
+    <%= f.label :email, class: "text-white", for: "user_email" %>
+    <%= f.email_field :email, autocomplete: "email", class: "form-control", id: "user_email", required: true %>
+    <div class="invalid-feedback">
+      Please enter a valid email address.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+  <div class="mb-3">
+    <%= f.label :password, class: "text-white", for: "user_password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control", id: "user_password", required: true %>
+    <div class="invalid-feedback">
+      Please enter a password.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, class: "text-white", for: "user_password_confirmation" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", id: "user_password_confirmation", required: true %>
+    <div class="invalid-feedback">
+      Please confirm your password.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+  <div class="mb-3">
+    <%= f.label :address, class: "text-white", for: "user_address" %>
+    <%= f.text_field :address, class: "form-control", id: "user_address", required: true %>
+    <div class="invalid-feedback">
+      Please enter your address.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :phone_number %><br />
-    <%= f.text_field :phone_number %>
+  <div class="mb-3">
+    <%= f.label :phone_number, class: "text-white", for: "user_phone_number" %>
+    <%= f.text_field :phone_number, class: "form-control", id: "user_phone_number", required: true %>
+    <div class="invalid-feedback">
+      Please enter your phone number.
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :province %><br />
-    <%= f.select :province, User.provinces_list %>
+  <div class="mb-3">
+    <%= f.label :province, class: "text-white", for: "user_province" %>
+    <%= f.select :province, User.provinces_list, {}, class: "form-select", id: "user_province", required: true %>
+    <div class="invalid-feedback">
+      Please select your province.
+    </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+
+        <div class="mb-3">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      <% end %>
+
+      <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict';
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation');
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+
+              form.classList.add('was-validated');
+            }, false);
+          });
+        })();
+      </script>
+    </div>
   </div>
-<% end %>
+</div>
