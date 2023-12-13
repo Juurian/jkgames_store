@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_07_163319) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_090345) do
   create_table "about_pages", force: :cascade do |t|
     t.string "headline"
     t.text "self_intro"
@@ -85,6 +85,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163319) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.text "address"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
+  create_table "game_orders", force: :cascade do |t|
+    t.integer "game_order_id"
+    t.integer "order_id"
+    t.integer "game_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["game_order_id"], name: "index_game_orders_on_game_order_id"
+    t.index ["user_id"], name: "index_game_orders_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "title"
     t.string "platform"
@@ -100,6 +122,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163319) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "total_price"
+    t.text "address"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -111,10 +143,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163319) do
     t.string "name"
     t.string "address"
     t.string "phone_number"
+    t.integer "user_role", default: 1
+    t.string "province"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customers", "users"
+  add_foreign_key "game_orders", "users"
+  add_foreign_key "orders", "users"
 end

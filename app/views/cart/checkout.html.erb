@@ -1,0 +1,33 @@
+<%= form_with(model: [@order, @user], url: create_order_from_cart_path, method: :post) do |form| %>
+  <!-- Display the cart items and total -->
+  <h2 class="text-white">Cart Items</h2>
+  <ul>
+    <% session[:shopping_cart].each do |id, details| %>
+      <li>
+        <%= details['title'] %> -
+        Quantity: <%= details['quantity'] %> -
+        Price: $<%= details['price'] %> -
+        Sub Total: $<%= number_with_precision(details['quantity'].to_i * details['price'].to_f, precision: 2) %>
+      </li>
+    <% end %>
+  </ul>
+
+  <div id="grand_total">Grand Total: $<%= @grand_total || 0 %></div>
+  <div id="pst_amount">PST: $<%= @pst_amount || 0 %></div>
+  <div id="gst_amount">GST: $<%= @gst_amount || 0 %></div>
+
+  <!-- Allow the user to input their address and province -->
+  <div class="field">
+    <%= form.label :address %><br />
+    <%= form.text_area :address, rows: 4, value: current_user&.address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :province %><br />
+    <%= form.select :province, options_for_select(['AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'], current_user&.province), include_blank: 'Select Province', id: 'province_select' %>
+  </div>
+
+  <%= form.submit "Update Cart", name: "update_cart_button" %>
+  <%= form.submit "Place Order", name: "place_order_button" %>
+
+<% end %>

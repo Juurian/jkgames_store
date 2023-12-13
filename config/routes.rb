@@ -41,6 +41,11 @@ Rails.application.routes.draw do
   # Cart Index
   delete '/cart/:id', to: 'cart#destroy'
   get '/cart', to: 'cart#show', as: 'cart_show'
+
+  # Cart Checkout
+  get '/checkout', to: 'cart#checkout', as: 'checkout'
+  post '/create_order_from_cart', to: 'cart#create_order_from_cart', as: 'create_order_from_cart'
+
   resources :cart, only: [:create, :destroy]
 
   # Others
@@ -49,4 +54,5 @@ Rails.application.routes.draw do
 
   patch 'cart/update/:id', to: 'cart#update', as: :cart_update
 
+  resources :invoices, only: [:show]
 end
