@@ -1,4 +1,5 @@
 class CartController < ApplicationController
+  before_action :authenticate_user!, only: [:checkout]
   #POST /cart
   def create
     puts "Create action called!"
