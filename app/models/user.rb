@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   # Add the province field and validation
   validates :province, presence: true
+  has_many :game_orders
 
   PROVINCES = {
     'Alberta' => 'AB', 'British Columbia' => 'BC', 'Manitoba' => 'MB', 'New Brunswick' => 'NB',

@@ -1,0 +1,3 @@
+class GameOrdersController < ApplicationController
+
+end
