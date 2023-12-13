@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_07_163724) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
   create_table "about_pages", force: :cascade do |t|
     t.string "headline"
     t.text "self_intro"
@@ -85,6 +85,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163724) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name"
+    t.text "address"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "title"
     t.string "platform"
@@ -98,6 +108,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163724) do
     t.integer "stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "total_price"
+    t.text "address"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -119,4 +139,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_07_163724) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customers", "users"
+  add_foreign_key "orders", "users"
 end
