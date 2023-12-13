@@ -7,11 +7,22 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-  # renders off of search results
   def search
-    @games = Game.where("title LIKE ?", "%#{params[:search]}%").page(params[:page]).per(10)
+    @games = Game.where("title LIKE ?", "%#{params[:search]}%")
+
+    case params[:filter]
+    when 'newly_added'
+      @games = @games.where("created_at >= ?", 3.days.ago).order(created_at: :desc)
+    when 'recently_modified'
+      @games = @games.where("updated_at >= ? AND created_at < ?", 3.days.ago, 3.days.ago).order(updated_at: :desc)
+    end
+
+    @games = @games.page(params[:page]).per(10)
     render 'index'
   end
+
+
+
 
   # shows the image from active storage
   def show_image
