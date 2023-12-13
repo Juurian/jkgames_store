@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_13_090345) do
   create_table "about_pages", force: :cascade do |t|
     t.string "headline"
     t.text "self_intro"
@@ -95,6 +95,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
     t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
+  create_table "game_orders", force: :cascade do |t|
+    t.integer "game_order_id"
+    t.integer "order_id"
+    t.integer "game_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["game_order_id"], name: "index_game_orders_on_game_order_id"
+    t.index ["user_id"], name: "index_game_orders_on_user_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "title"
     t.string "platform"
@@ -140,5 +152,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_12_180239) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "customers", "users"
+  add_foreign_key "game_orders", "users"
   add_foreign_key "orders", "users"
 end
