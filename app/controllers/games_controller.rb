@@ -15,13 +15,15 @@ class GamesController < ApplicationController
       @games = @games.where("created_at >= ?", 3.days.ago).order(created_at: :desc)
     when 'recently_modified'
       @games = @games.where("updated_at >= ? AND created_at < ?", 3.days.ago, 3.days.ago).order(updated_at: :desc)
+    when 'by_genre'
+      if params[:genre].present? && params[:genre] != 'All Genres'
+        @games = @games.where("genre LIKE ?", "%#{params[:genre]}%")
+      end
     end
 
     @games = @games.page(params[:page]).per(10)
     render 'index'
   end
-
-
 
 
   # shows the image from active storage

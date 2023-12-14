@@ -4,20 +4,22 @@
       <div class="row justify-content-center">
         <div class="col-md-12">
     <% case controller.controller_name %>
-      <% when 'games' %>
-        <%= form_tag(search_games_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
-          <div class="input-group mt-2 mb-2">
-            <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search Games by Title", aria: { label: "Search" } %>
-            <div class="input-group-append">
-              <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
-            </div>
-          </div>
+    <% when 'games' %>
+    <%= form_tag(search_games_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
+      <!-- Search input for title and filter -->
+      <div class="input-group mt-2 mb-2">
+        <%= text_field_tag :search, params[:search], class: "form-control mr-sm-2", placeholder: "Search Games by Title", aria: { label: "Search" } %>
+        <%= select_tag :filter, options_for_select([['Newly Added', 'newly_added'], ['Recently Modified', 'recently_modified'], ['By Genre', 'by_genre']], params[:filter]), class: "form-control", prompt: 'No filter' %>
+      </div>
 
-          <div class="input-group mt-2 mb-2">
-            <%= select_tag :filter, options_for_select([['Newly Added', 'newly_added'], ['Recently Modified', 'recently_modified']], params[:filter]), class: "form-control", prompt: 'No filter' %>
-            <%= submit_tag "Apply Filter", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
-          </div>
-        <% end %>
+      <!-- Dropdown for genres -->
+      <div class="input-group mt-2 mb-2">
+        <%= select_tag :genre, options_for_select(['RPG', 'HORROR', 'ACT/ADV', 'FIGHTING', 'FPS'], params[:genre]), include_blank: 'All Genres', class: "form-control" %>
+        <div class="input-group-append">
+          <%= submit_tag "Search", class: "btn btn-outline-light my-2 my-sm-0", type: "submit" %>
+        </div>
+      </div>
+    <% end %>
       <% when 'ps4' %>
         <%= form_tag(search_ps4_path, method: "get", class: "form-inline my-2 my-lg-0") do %>
           <div class="input-group mt-2 mb-2">
