@@ -1,4 +1,4 @@
-<h1 class="display-3 m-4"><%= @user.name %>, let's review your order!</h1>
+<h1 class="text-white m-4"><%= @user.name %>, let's review your order!</h1>
 
 <%= form_with(model: [@order, @user], url: create_order_from_cart_path, method: :post) do |form| %>
   <!-- Cart Items Table -->
@@ -48,6 +48,7 @@
   <div id="address" class="mx-auto" style="width: 200px;">Ship To: <br>
     <p>Name: <%= @user.name %></p>
     <p>Address: <%= @address %></p>
+    <p>Province: <%= @user.province %></p>
   </div>
 
   <br>
