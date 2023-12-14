@@ -55,4 +55,12 @@ Rails.application.routes.draw do
   patch 'cart/update/:id', to: 'cart#update', as: 'cart_update'
 
   resources :invoices, only: [:show]
+
+  # Add this to your routes.rb file
+  get '/order_confirmation', to: 'cart#order_confirmation', as: 'order_confirmation'
+
+  # Add this to your CartController
+  def order_confirmation
+    # You can retrieve additional order details if needed
+  end
 end

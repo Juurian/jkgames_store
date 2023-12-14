@@ -84,6 +84,6 @@
 </nav>
 <% if user_signed_in? %>
   <div class="d-flex justify-content-end pe-3 bg-dark">
-    <b><%= "Currently Logged in as: #{current_user.email}" %></b>
+    <b><%= "Currently Logged in as: #{current_user.name} || #{current_user.email}" %></b>
   </div>
 <% end %>

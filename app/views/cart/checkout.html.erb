@@ -1,23 +1,56 @@
+<h1 class="display-3 m-4"><%= @user.name %>, let's review your order!</h1>
+
 <%= form_with(model: [@order, @user], url: create_order_from_cart_path, method: :post) do |form| %>
-  <!-- Display the cart items and total -->
-  <h2 class="text-white">Cart Items</h2>
-  <ul>
-    <% session[:shopping_cart].each do |id, details| %>
-      <li>
-        <%= details['title'] %> -
-        Quantity: <%= details['quantity'] %> -
-        Price: $<%= details['price'] %> -
-        Sub Total: $<%= number_with_precision(details['quantity'].to_i * details['price'].to_f, precision: 2) %>
-      </li>
-    <% end %>
-  </ul>
+  <!-- Cart Items Table -->
+  <table class="table table-bordered" style="width: 70%; margin: 20px auto; border-radius: 10px;">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Sub Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% session[:shopping_cart].each do |id, details| %>
+        <tr>
+          <td><%= details['title'] %></td>
+          <td><%= details['quantity'] %></td>
+          <td>$<%= details['price'] %></td>
+          <td>$<%= number_with_precision(details['quantity'].to_i * details['price'].to_f, precision: 2) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-  <div id="sub_total">Sub Total: $<%= @sub_total || 0 %></div>
-  <div id="pst_amount">PST: <%=@pst_rate * @sub_total %></div>
-  <div id="gst_amount">GST: <%=@gst * @sub_total || 0 %></div>
-  <div id="grand_total">Grand Total: $<%= (@pst_rate * @sub_total) + (@gst * @sub_total) + @sub_total || 0 %></div>
+  <!-- Summary Table -->
+  <table class="table" style="width: 70%; margin: 20px auto; border-radius: 10px;">
+    <tbody>
+      <tr>
+        <th scope="row">Sub Total:</th>
+        <td>$<%= number_with_precision(@sub_total || 0, precision: 2) %></td>
+      </tr>
+      <tr>
+        <th scope="row">PST:</th>
+        <td>$<%= number_with_precision(@pst_rate * @sub_total, precision: 2) %></td>
+      </tr>
+      <tr>
+        <th scope="row">GST:</th>
+        <td>$<%= number_with_precision(@gst * @sub_total || 0, precision: 2) %></td>
+      </tr>
+      <tr>
+        <th scope="row"><strong>Grand Total:</strong></th>
+        <td><strong>$<%= number_with_precision((@pst_rate * @sub_total) + (@gst * @sub_total) + @sub_total || 0, precision: 2) %></strong></td>
+      </tr>
+    </tbody>
+  </table>
 
-  <div id="address">Ship To: <%= @address %></div>
+  <div id="address" class="mx-auto" style="width: 200px;">Ship To: <br>
+    <p>Name: <%= @user.name %></p>
+    <p>Address: <%= @address %></p>
+  </div>
 
-  <%= form.submit "Place Order", name: "place_order_button" %>
+  <br>
+
+  <%= form.submit "Place Order", class: "btn btn-primary mx-auto d-block", style: "width: 200px;", name: "place_order_button" %>
 <% end %>

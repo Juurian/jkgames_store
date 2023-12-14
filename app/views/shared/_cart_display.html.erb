@@ -15,7 +15,7 @@
           <div class="row row-cols-6">
             <% session[:shopping_cart].each do |id, details| %>
               <% if details['quantity'].to_i > 0 %> <!-- Check if quantity is greater than 0 -->
-                <div class="col-sm-1 mb-3">
+                <div class="col-sm-2 mb-3">
                   <div class="card">
                     <div class="card-body">
                       <%= link_to details['title'], game_path(id), class: "cart-item-link" %><br>
